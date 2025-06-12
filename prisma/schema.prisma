@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model News {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  excerpt     String?
+  imageUrl    String?
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String
+}
+
+model CalendarEvent {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime?
+  type        String   // "term", "holiday", "exam", "event"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Staff {
+  id          String   @id @default(cuid())
+  name        String
+  position    String
+  subjects    String[] // Array of subjects
+  imageUrl    String?
+  email       String?
+  phone       String?
+  bio         String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Gallery {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String
+  category    String   // "sports", "academics", "events", "facilities"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Blog {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  excerpt     String?
+  imageUrl    String?
+  published   Boolean  @default(false)
+  slug        String   @unique
+  tags        String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String
+}
+
+model AdmissionInfo {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  requirements String[]
+  fees        String?
+  documents   String[]
+  deadlines   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  title       String
+  message     String
+  type        String   // "info", "warning", "success", "urgent"
+  priority    String   @default("normal") // "low", "normal", "high", "urgent"
+  targetAudience String // "all", "students", "parents", "staff"
+  published   Boolean  @default(false)
+  expiresAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  authorId    String
+}
