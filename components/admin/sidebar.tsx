@@ -12,7 +12,6 @@ import {
   BookOpen,
   GraduationCap,
   MessageSquare,
-  Bell,
   LogOut,
 } from "lucide-react"
 import { UserButton } from "@clerk/nextjs"
@@ -25,7 +24,6 @@ const navigation = [
   { name: "Gallery", href: "/admin/gallery", icon: ImageIcon },
   { name: "Blog", href: "/admin/blog", icon: BookOpen },
   { name: "Admissions", href: "/admin/admissions", icon: GraduationCap },
-  { name: "Notifications", href: "/admin/notifications", icon: Bell },
   { name: "Messages", href: "/admin/messages", icon: MessageSquare },
 ]
 

@@ -9,7 +9,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Kasikeu Boys High School",
   description: "Excellence in Education, Character Development, and Leadership Training",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

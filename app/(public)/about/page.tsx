@@ -1,139 +1,128 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Users, BookOpen, Trophy, Target } from "lucide-react"
-
 export default function AboutPage() {
   return (
-    <div className="min-h-screen py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">About Kasikeu Boys High School</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Learn about our rich history, values, and commitment to educational excellence
-          </p>
-        </div>
+    <div style={{ paddingTop: "5rem" }}>
+      <section className="section">
+        <div className="container">
+          <div className="section-header">
+            <h1 className="section-title">About Kasikeu Boys High School</h1>
+            <p className="section-description">
+              Learn about our rich history, values, and commitment to educational excellence
+            </p>
+          </div>
 
-        {/* School History */}
-        <section className="mb-16">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">Our History</CardTitle>
-            </CardHeader>
-            <CardContent className="prose max-w-none">
-              <p className="text-gray-600 leading-relaxed mb-4">
+          <div className="card" style={{ marginBottom: "4rem" }}>
+            <div className="card-header">
+              <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Our History</h2>
+            </div>
+            <div className="card-content">
+              <p style={{ color: "#6b7280", lineHeight: "1.7", marginBottom: "1rem" }}>
                 Kasikeu Boys High School was established in 1985 with a vision to provide quality secondary education to
                 boys in the region. Founded by a group of visionary community leaders and educators, the school began
                 with just 120 students and has grown to become one of the leading secondary schools in the area.
               </p>
-              <p className="text-gray-600 leading-relaxed mb-4">
+              <p style={{ color: "#6b7280", lineHeight: "1.7", marginBottom: "1rem" }}>
                 Over the years, we have maintained our commitment to academic excellence while adapting to modern
                 educational needs. Our graduates have gone on to excel in various fields, including medicine,
                 engineering, law, business, and public service, making significant contributions to society.
               </p>
-              <p className="text-gray-600 leading-relaxed">
+              <p style={{ color: "#6b7280", lineHeight: "1.7" }}>
                 Today, Kasikeu Boys High School stands as a beacon of educational excellence, character development, and
                 leadership training, continuing to shape young minds for a better tomorrow.
               </p>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Core Values */}
-        <section className="mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Core Values</h2>
-            <p className="text-xl text-gray-600">The principles that guide everything we do</p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center">
-              <CardHeader>
-                <BookOpen className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Excellence</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
+          <div className="section-header">
+            <h2 className="section-title">Our Core Values</h2>
+            <p className="section-description">The principles that guide everything we do</p>
+          </div>
+
+          <div className="grid grid-cols-4">
+            <div className="card text-center hover-lift">
+              <div className="card-content">
+                <div className="icon-wrapper icon-wrapper-blue">📚</div>
+                <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem" }}>Excellence</h3>
+                <p style={{ color: "#6b7280" }}>
                   We strive for the highest standards in academics, character, and all endeavors.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="text-center">
-              <CardHeader>
-                <Target className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Integrity</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
+            <div className="card text-center hover-lift">
+              <div className="card-content">
+                <div className="icon-wrapper icon-wrapper-green">🎯</div>
+                <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem" }}>Integrity</h3>
+                <p style={{ color: "#6b7280" }}>
                   We uphold honesty, transparency, and moral uprightness in all our actions.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="text-center">
-              <CardHeader>
-                <Users className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Respect</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
+            <div className="card text-center hover-lift">
+              <div className="card-content">
+                <div className="icon-wrapper icon-wrapper-purple">👥</div>
+                <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem" }}>Respect</h3>
+                <p style={{ color: "#6b7280" }}>
                   We value diversity, treat everyone with dignity, and foster inclusive community.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="text-center">
-              <CardHeader>
-                <Trophy className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Innovation</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
+            <div className="card text-center hover-lift">
+              <div className="card-content">
+                <div className="icon-wrapper icon-wrapper-orange">🏆</div>
+                <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem" }}>Innovation</h3>
+                <p style={{ color: "#6b7280" }}>
                   We embrace creativity, critical thinking, and modern approaches to learning.
                 </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* School Statistics */}
-        <section>
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">School at a Glance</h2>
-            <p className="text-xl text-gray-600">Key facts and figures about our institution</p>
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="text-4xl font-bold text-blue-600 mb-2">800+</div>
-                <p className="text-gray-600">Students Enrolled</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="text-4xl font-bold text-blue-600 mb-2">45</div>
-                <p className="text-gray-600">Teaching Staff</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="text-4xl font-bold text-blue-600 mb-2">38</div>
-                <p className="text-gray-600">Years of Excellence</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="text-4xl font-bold text-blue-600 mb-2">95%</div>
-                <p className="text-gray-600">University Admission Rate</p>
-              </CardContent>
-            </Card>
+          <div className="section-header">
+            <h2 className="section-title">School at a Glance</h2>
+            <p className="section-description">Key facts and figures about our institution</p>
           </div>
-        </section>
-      </div>
+
+          <div className="grid grid-cols-4">
+            <div className="card text-center">
+              <div className="card-content">
+                <div style={{ fontSize: "2.5rem", fontWeight: "bold", color: "#2563eb", marginBottom: "0.5rem" }}>
+                  800+
+                </div>
+                <p style={{ color: "#6b7280" }}>Students Enrolled</p>
+              </div>
+            </div>
+
+            <div className="card text-center">
+              <div className="card-content">
+                <div style={{ fontSize: "2.5rem", fontWeight: "bold", color: "#2563eb", marginBottom: "0.5rem" }}>
+                  45
+                </div>
+                <p style={{ color: "#6b7280" }}>Teaching Staff</p>
+              </div>
+            </div>
+
+            <div className="card text-center">
+              <div className="card-content">
+                <div style={{ fontSize: "2.5rem", fontWeight: "bold", color: "#2563eb", marginBottom: "0.5rem" }}>
+                  38
+                </div>
+                <p style={{ color: "#6b7280" }}>Years of Excellence</p>
+              </div>
+            </div>
+
+            <div className="card text-center">
+              <div className="card-content">
+                <div style={{ fontSize: "2.5rem", fontWeight: "bold", color: "#2563eb", marginBottom: "0.5rem" }}>
+                  95%
+                </div>
+                <p style={{ color: "#6b7280" }}>University Admission Rate</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

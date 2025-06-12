@@ -1,12 +1,19 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -18,57 +25,60 @@ export function Header() {
     { name: "Gallery", href: "/gallery" },
     { name: "Admissions", href: "/admissions" },
     { name: "Blog", href: "/blog" },
-    { name: "Notifications", href: "/notifications" },
     { name: "Contact", href: "/contact" },
   ]
 
   return (
-    <header className="bg-white shadow-sm border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">K</span>
-            </div>
-            <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-gray-900">Kasikeu Boys High School</h1>
-            </div>
+    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+      <div className="header-container">
+        <Link href="/" className="logo">
+          <div className="logo-icon">K</div>
+          <div className="logo-text">
+            <h1 style={{ color: isScrolled ? "#111827" : "#fff" }}>Kasikeu Boys High School</h1>
+            <p style={{ color: isScrolled ? "#6b7280" : "#dbeafe" }}>Excellence in Education</p>
+          </div>
+        </Link>
+
+        <nav className="nav">
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className="nav-link"
+              style={{ color: isScrolled ? "#374151" : "#fff" }}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="hidden" style={{ display: "none" }}>
+          <Link href="/admissions" className="btn btn-primary">
+            Apply Now
           </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Mobile menu button */}
-          <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
         </div>
 
-        {/* Mobile Navigation */}
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          style={{ color: isScrolled ? "#374151" : "#fff" }}
+        >
+          {isMenuOpen ? "✕" : "☰"}
+        </button>
+
         {isMenuOpen && (
-          <div className="lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t">
+          <div className="mobile-menu">
+            <div className="mobile-menu-content">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md"
-                  onClick={() => setIsMenuOpen(false)}
-                >
+                <Link key={item.name} href={item.href} className="mobile-nav-link" onClick={() => setIsMenuOpen(false)}>
                   {item.name}
                 </Link>
               ))}
+              <div style={{ paddingTop: "1rem", borderTop: "1px solid #e5e7eb" }}>
+                <Link href="/admissions" className="btn btn-primary" style={{ width: "100%" }}>
+                  Apply Now
+                </Link>
+              </div>
             </div>
           </div>
         )}

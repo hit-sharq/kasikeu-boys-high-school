@@ -10,7 +10,7 @@ INSERT INTO "CalendarEvent" (id, title, description, "startDate", "endDate", typ
 
 -- Insert sample staff members
 INSERT INTO "Staff" (id, name, position, subjects, "imageUrl", email, phone, bio, "order", "createdAt", "updatedAt") VALUES
-('staff1', 'Mr. John Kamau', 'Principal', '{}', '/placeholder.svg?height=300&width=300', 'principal@kasikeuboys.ac.ke', '+254700000001', 'Experienced educator with over 20 years in secondary education.', 1, NOW(), NOW()),
+('staff1', 'Mr. John Kamau', 'Principal', '{}', '/placeholder-logo.svg?height=300&width=300', 'principal@kasikeuboys.ac.ke', '+254700000001', 'Experienced educator with over 20 years in secondary education.', 1, NOW(), NOW()),
 ('staff2', 'Mrs. Mary Wanjiku', 'Deputy Principal', '{"Mathematics", "Physics"}', '/placeholder.svg?height=300&width=300', 'deputy@kasikeuboys.ac.ke', '+254700000002', 'Mathematics and Physics teacher with excellent track record.', 2, NOW(), NOW()),
 ('staff3', 'Mr. Peter Ochieng', 'Head of Sciences', '{"Chemistry", "Biology"}', '/placeholder.svg?height=300&width=300', 'sciences@kasikeuboys.ac.ke', '+254700000003', 'Science department head specializing in Chemistry and Biology.', 3, NOW(), NOW()),
 ('staff4', 'Ms. Grace Mutua', 'English Teacher', '{"English", "Literature"}', '/placeholder.svg?height=300&width=300', 'english@kasikeuboys.ac.ke', '+254700000004', 'Passionate about language and literature education.', 4, NOW(), NOW());
@@ -89,11 +89,3 @@ We look forward to welcoming new students to our school community.',
 '{"Application Form", "KCPE Certificate Copy", "Birth Certificate Copy", "4 Passport Photos", "Medical Report", "Transfer Certificate (if applicable)"}',
 'Applications open in November each year',
 NOW(), NOW());
-
--- Insert sample notifications
-INSERT INTO "Notification" (id, title, message, type, priority, "targetAudience", published, "expiresAt", "createdAt", "updatedAt", "authorId") VALUES
-('notif1', 'Term 2 Opening Date Confirmed', 'Term 2 will officially begin on Monday, May 6th, 2024. All students are expected to report by 6:00 PM on Sunday, May 5th. Please ensure all fees are cleared before reporting.', 'info', 'high', 'all', true, '2024-05-10T23:59:59Z', NOW(), NOW(), 'admin'),
-('notif2', 'URGENT: Parent-Teacher Meeting', 'All parents are required to attend the Parent-Teacher meeting scheduled for Saturday, April 20th, 2024, starting at 9:00 AM. This is mandatory for all parents. Please confirm your attendance.', 'urgent', 'urgent', 'parents', true, '2024-04-25T23:59:59Z', NOW(), NOW(), 'admin'),
-('notif3', 'New Science Laboratory Equipment', 'We are excited to announce the arrival of new laboratory equipment for our Physics and Chemistry labs. Students will begin using the new equipment starting next week.', 'success', 'normal', 'students', true, NULL, NOW(), NOW(), 'admin'),
-('notif4', 'Staff Development Workshop', 'All teaching staff are required to attend the CBC transition workshop on Friday, April 12th, 2024. The workshop will run from 8:00 AM to 4:00 PM in the school hall.', 'warning', 'high', 'staff', true, '2024-04-15T23:59:59Z', NOW(), NOW(), 'admin'),
-('notif5', 'Library Extended Hours', 'The school library will now be open until 8:00 PM on weekdays to support students with their studies. Weekend hours remain 9:00 AM to 5:00 PM.', 'info', 'normal', 'students', true, NULL, NOW(), NOW(), 'admin');
