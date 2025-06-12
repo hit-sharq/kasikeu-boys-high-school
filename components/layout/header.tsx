@@ -26,6 +26,8 @@ export function Header() {
     { name: "Admissions", href: "/admissions" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
+    { name: "Sign In", href: "/sign-in" },
+    { name: "Sign Up", href: "/sign-up" },
   ]
 
   return (
@@ -52,7 +54,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden" style={{ display: "none" }}>
+        <div className="flex items-center gap-3">
           <Link href="/admissions" className="btn btn-primary">
             Apply Now
           </Link>
@@ -75,6 +77,13 @@ export function Header() {
                 </Link>
               ))}
               <div style={{ paddingTop: "1rem", borderTop: "1px solid #e5e7eb" }}>
+                <Link
+                  href="/sign-in"
+                  className="block w-full text-center px-4 py-2 mb-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Admin Login
+                </Link>
                 <Link href="/admissions" className="btn btn-primary" style={{ width: "100%" }}>
                   Apply Now
                 </Link>
