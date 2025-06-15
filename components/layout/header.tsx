@@ -36,7 +36,7 @@ export function Header() {
         <Link href="/" className="logo">
           <div className="logo-icon">K</div>
           <div className="logo-text">
-            <h1 style={{ color: isScrolled ? "#111827" : "#fff" }}>Kasikeu Boys High School</h1>
+            <h1 style={{ color: isScrolled ? "#111827" : "#fff" }}>Kasikeu Boys' High School</h1>
             <p style={{ color: isScrolled ? "#6b7280" : "#dbeafe" }}>Excellence in Education</p>
           </div>
         </Link>

@@ -23,7 +23,7 @@ export default async function HomePage() {
 
           <div className="animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
             <h1 className="hero-title">
-              Kasikeu Boys
+              Kasikeu Boys'
               <span className="hero-subtitle">High School</span>
             </h1>
             <p className="hero-description">
@@ -176,7 +176,7 @@ export default async function HomePage() {
               <div className="card-content">
                 <div className="icon-wrapper icon-wrapper-indigo">📈</div>
                 <h3 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem" }}>
-                  University Preparation
+                  School Preparation
                 </h3>
                 <p style={{ color: "#374151" }}>
                   Comprehensive programs designed to prepare students for higher education and career success.
@@ -298,7 +298,7 @@ export default async function HomePage() {
                 Apply for Admission →
               </Link>
               <Link href="/contact" className="btn btn-secondary btn-lg">
-                📍 Visit Our Campus
+                📍 Visit Our School
               </Link>
             </div>
           </div>
