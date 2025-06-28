@@ -8,14 +8,6 @@ export async function requireAuth() {
     redirect("/sign-in")
   }
 
-  // Check if user is admin
-  const adminIds = process.env.ADMIN_IDS?.split(",").map((id) => id.trim()) || []
-  const isAdmin = adminIds.includes(userId)
-
-  if (!isAdmin) {
-    redirect("/?error=unauthorized")
-  }
-
   return userId
 }
 
@@ -27,13 +19,27 @@ export async function getCurrentUser() {
 export async function isAdmin(userId?: string) {
   if (!userId) {
     const { userId: currentUserId } = await auth()
-    if (currentUserId !== null) {
-      userId = currentUserId
-    }
+    if (!currentUserId) return false
+    userId = currentUserId
   }
-
-  if (!userId) return false
 
   const adminIds = process.env.ADMIN_IDS?.split(",").map((id) => id.trim()) || []
   return adminIds.includes(userId)
+}
+
+export async function getCurrentUserRole() {
+  const { userId } = await auth()
+
+  if (!userId) {
+    return { userId: null, isAdmin: false, isAuthenticated: false }
+  }
+
+  const adminIds = process.env.ADMIN_IDS?.split(",").map((id) => id.trim()) || []
+  const isUserAdmin = adminIds.includes(userId)
+
+  return {
+    userId,
+    isAdmin: isUserAdmin,
+    isAuthenticated: true,
+  }
 }
