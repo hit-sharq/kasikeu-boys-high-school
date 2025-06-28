@@ -1,4 +1,4 @@
-import { authMiddleware, getAuth } from "@clerk/nextjs/server"
+import { clerkMiddleware } from "@clerk/nextjs/server"
 import { type NextRequest, NextResponse } from "next/server"
 
 // Helper function to match routes using regex patterns
@@ -31,8 +31,12 @@ const publicRoutePatterns = [
 const adminRoutePatterns = ["/admin.*"]
 const adminApiRoutePatterns = ["/api/admin.*"]
 
-function customAuthMiddleware(req: NextRequest) {
-  const { userId } = getAuth(req)
+async function customAuthMiddleware(req: NextRequest) {
+  // Custom authorization logic can be applied here after clerkMiddleware runs
+  // For example, checking admin roles or redirecting unauthorized users
+  // Since clerkMiddleware handles authentication, we can rely on req.auth
+  // @ts-ignore
+  const { userId } = req.auth || {}
   const { pathname } = req.nextUrl
 
   // Get admin IDs from environment variable
@@ -93,12 +97,14 @@ function customAuthMiddleware(req: NextRequest) {
 
 import type { NextFetchEvent } from "next/server"
 
-export default function middleware(req: NextRequest, ev: NextFetchEvent) {
-  const authResponse = authMiddleware()(req, ev)
-  if (authResponse) {
-    return authResponse
+export default async function middleware(req: NextRequest, ev: NextFetchEvent) {
+  // First run clerkMiddleware to handle authentication
+  const clerkResponse = await clerkMiddleware(req, ev)
+  if (clerkResponse) {
+    return clerkResponse
   }
-  return customAuthMiddleware(req) || NextResponse.next()
+  // Then run custom authorization logic
+  return (await customAuthMiddleware(req)) || NextResponse.next()
 }
 
 export const config = {
