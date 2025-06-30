@@ -1,20 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { auth } from "@clerk/nextjs/server"
+import { requireAdmin } from "@/lib/auth"
 import { uploadImage } from "@/lib/cloudinary"
 
 export async function POST(request: NextRequest) {
   try {
-    const { userId } = await auth()
-
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
-    // Check if user is admin
-    const adminIds = process.env.ADMIN_IDS?.split(",").map((id) => id.trim()) || []
-    if (!adminIds.includes(userId)) {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
-    }
+    // Ensure user is admin
+    await requireAdmin()
 
     const formData = await request.formData()
     const file = formData.get("file") as File

@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
+import { ImageUpload } from "@/components/ui/image-upload"
 import { toast } from "sonner"
 
 interface NewsItem {
@@ -161,7 +162,7 @@ export default function AdminNewsPage() {
               Add News
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>{editingNews ? "Edit News" : "Create News"}</DialogTitle>
               <DialogDescription>
@@ -188,12 +189,11 @@ export default function AdminNewsPage() {
                 />
               </div>
               <div>
-                <Label htmlFor="imageUrl">Image URL</Label>
-                <Input
-                  id="imageUrl"
+                <ImageUpload
                   value={formData.imageUrl}
-                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
+                  onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                  onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+                  label="Featured Image"
                 />
               </div>
               <div>

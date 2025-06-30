@@ -1,62 +1,41 @@
 import { auth } from "@clerk/nextjs/server"
-import { redirect } from "next/navigation"
 
 export async function requireAuth() {
   const { userId } = await auth()
 
   if (!userId) {
-    redirect("/sign-in")
+    throw new Error("Unauthorized")
   }
 
-  return userId
-}
-
-export async function getCurrentUser() {
-  const { userId } = await auth()
   return userId
 }
 
 export async function requireAdmin() {
-  const { userId } = await auth()
+  const userId = await requireAuth()
 
-  if (!userId) {
-    redirect("/sign-in")
-  }
-
+  // Check if user is admin via environment variable
   const adminIds = process.env.ADMIN_IDS?.split(",").map((id) => id.trim()) || []
-  const isUserAdmin = adminIds.includes(userId)
+  const isAdmin = adminIds.includes(userId)
 
-  if (!isUserAdmin) {
-    redirect("/?error=unauthorized")
+  if (!isAdmin) {
+    throw new Error("Admin access required")
   }
 
   return userId
 }
 
-export async function isAdmin(userId?: string) {
-  if (!userId) {
-    const { userId: currentUserId } = await auth()
-    if (!currentUserId) return false
-    userId = currentUserId
-  }
-
-  const adminIds = process.env.ADMIN_IDS?.split(",").map((id) => id.trim()) || []
-  return adminIds.includes(userId)
-}
-
-export async function getCurrentUserRole() {
+export async function getCurrentUserWithRole() {
   const { userId } = await auth()
 
-  if (!userId) {
-    return { userId: null, isAdmin: false, isAuthenticated: false }
-  }
+  if (!userId) return null
 
+  // Check environment admin IDs
   const adminIds = process.env.ADMIN_IDS?.split(",").map((id) => id.trim()) || []
-  const isUserAdmin = adminIds.includes(userId)
+  const isEnvAdmin = adminIds.includes(userId)
 
   return {
     userId,
-    isAdmin: isUserAdmin,
-    isAuthenticated: true,
+    isAdmin: isEnvAdmin,
+    canEdit: isEnvAdmin,
   }
 }
