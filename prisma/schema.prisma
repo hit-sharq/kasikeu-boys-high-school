@@ -10,6 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id          String   @id @default(cuid())
+  clerkId     String   @unique
+  email       String   @unique
+  firstName   String
+  lastName    String
+  role        String
+  permissions Permission[] @relation("UserPermissions")
+  createdNews News[]   @relation("UserCreatedNews")
+  createdEvents CalendarEvent[] @relation("UserCreatedEvents")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Permission {
+  id    String @id @default(cuid())
+  name  String
+  users User[] @relation("UserPermissions")
+}
+
 model News {
   id          String   @id @default(cuid())
   title       String
@@ -20,6 +40,7 @@ model News {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   authorId    String
+  author      User     @relation(fields: [authorId], references: [id], name: "UserCreatedNews")
 }
 
 model CalendarEvent {
@@ -32,6 +53,8 @@ model CalendarEvent {
   type        String   @default("academic")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  creatorId   String
+  creator     User     @relation(fields: [creatorId], references: [id], name: "UserCreatedEvents")
 }
 
 model Staff {

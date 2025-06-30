@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
+import { ImageUpload } from "@/components/ui/image-upload"
 import { toast } from "sonner"
 
 interface BlogPost {
@@ -211,24 +212,21 @@ export default function AdminBlogPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="imageUrl">Featured Image URL</Label>
+                  <Label htmlFor="tags">Tags (comma separated)</Label>
                   <Input
-                    id="imageUrl"
-                    value={formData.imageUrl}
-                    onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                    placeholder="https://example.com/image.jpg"
+                    id="tags"
+                    value={formData.tags}
+                    onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                    placeholder="education, school life, academics"
                   />
                 </div>
               </div>
-              <div>
-                <Label htmlFor="tags">Tags (comma separated)</Label>
-                <Input
-                  id="tags"
-                  value={formData.tags}
-                  onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                  placeholder="education, school life, academics"
-                />
-              </div>
+              <ImageUpload
+                value={formData.imageUrl}
+                onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+                label="Featured Image (Optional)"
+              />
               <div>
                 <Label htmlFor="content">Content</Label>
                 <Textarea

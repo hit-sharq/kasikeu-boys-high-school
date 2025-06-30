@@ -1,11 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { auth } from "@clerk/nextjs/server"
 import { prisma } from "@/lib/prisma"
-import { requireAuth } from "@/lib/auth"
 
 export async function GET() {
   try {
-    await requireAuth()
-
     const posts = await prisma.blog.findMany({
       orderBy: { createdAt: "desc" },
     })
@@ -19,36 +17,48 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const userId = await requireAuth()
-    const body = await request.json()
+    const { userId } = await auth()
 
-    if (!body.title || !body.content || !body.slug) {
-      return NextResponse.json({ error: "Title, content, and slug are required" }, { status: 400 })
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    // Check if user is admin
+    const adminIds = process.env.ADMIN_IDS?.split(",").map((id) => id.trim()) || []
+    if (!adminIds.includes(userId)) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
+
+    const body = await request.json()
+    const { title, content, excerpt, imageUrl, published, tags, slug } = body
+
+    if (!title || !content || !slug) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
     // Check if slug already exists
     const existingPost = await prisma.blog.findUnique({
-      where: { slug: body.slug },
+      where: { slug },
     })
 
     if (existingPost) {
-      return NextResponse.json({ error: "A post with this slug already exists" }, { status: 400 })
+      return NextResponse.json({ error: "Slug already exists" }, { status: 400 })
     }
 
     const post = await prisma.blog.create({
       data: {
-        title: body.title,
-        content: body.content,
-        excerpt: body.excerpt || body.content.substring(0, 150) + "...",
-        imageUrl: body.imageUrl,
-        published: body.published || false,
-        slug: body.slug,
-        tags: body.tags || [],
+        title,
+        content,
+        excerpt,
+        imageUrl,
+        published,
+        tags,
+        slug,
         authorId: userId,
       },
     })
 
-    return NextResponse.json(post, { status: 201 })
+    return NextResponse.json(post)
   } catch (error) {
     console.error("Error creating blog post:", error)
     return NextResponse.json({ error: "Failed to create blog post" }, { status: 500 })

@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { ImageUpload } from "@/components/ui/image-upload"
 import { toast } from "sonner"
 
 interface GalleryItem {
@@ -63,6 +64,11 @@ export default function AdminGalleryPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!formData.imageUrl) {
+      toast.error("Please upload an image")
+      return
+    }
 
     try {
       const url = editingItem ? `/api/admin/gallery/${editingItem.id}` : "/api/admin/gallery"
@@ -189,16 +195,12 @@ export default function AdminGalleryPage() {
                   <option value="cultural">Cultural</option>
                 </select>
               </div>
-              <div>
-                <Label htmlFor="imageUrl">Image URL</Label>
-                <Input
-                  id="imageUrl"
-                  value={formData.imageUrl}
-                  onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
-                  required
-                />
-              </div>
+              <ImageUpload
+                value={formData.imageUrl}
+                onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+                onRemove={() => setFormData({ ...formData, imageUrl: "" })}
+                label="Gallery Image"
+              />
               <div>
                 <Label htmlFor="description">Description</Label>
                 <Textarea
